@@ -75,8 +75,10 @@ jobs:
           target: google_apis
           profile: pixel_6
           disable-animations: true
+          # hide_error_dialogs: a slow CI emulator's own launcher can raise "isn't responding" over the app and fail every flow.
           script: |
             adb install -r "${{ steps.apk.outputs.apk }}"
+            adb shell settings put global hide_error_dialogs 1
             maestro test .maestro/ --format junit --output maestro-report.xml --debug-output maestro-debug --flatten-debug-output || (adb logcat -d > maestro-logcat.txt; exit 1)
 
       - name: Upload Maestro output
