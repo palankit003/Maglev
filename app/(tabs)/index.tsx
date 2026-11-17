@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { AppState, BackHandler, Linking, StyleSheet, TextInput, View } from 'react-native';
+import { AppState, BackHandler, Linking, Platform, StyleSheet, TextInput, ToastAndroid, View } from 'react-native';
 import { FlashList } from '@shopify/flash-list';
 import { useFocusEffect, useIsFocused, useLocalSearchParams, useRouter } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -308,15 +308,28 @@ export default function TransfersScreen() {
   // Hiding it used to re-show the bar in the same frame as the Pause tap, and the follow-up touch
   // reached the Search tab.
 
-  // Android Back leaves selection mode before anything else.
-  useEffect(() => {
-    if (!selectionMode) return;
-    const sub = BackHandler.addEventListener('hardwareBackPress', () => {
-      setSelectedIds(new Set());
-      return true;
-    });
-    return () => sub.remove();
-  }, [selectionMode]);
+  // Android Back: leave selection mode first; then require a double-tap within 2s to leave the app.
+  const lastBackTime = useRef<number>(0);
+  useFocusEffect(
+    useCallback(() => {
+      const sub = BackHandler.addEventListener('hardwareBackPress', () => {
+        if (selectedIds.size > 0) {
+          setSelectedIds(new Set());
+          return true;
+        }
+        const now = Date.now();
+        if (now - lastBackTime.current < 2000) {
+          return false;
+        }
+        lastBackTime.current = now;
+        if (Platform.OS === 'android') {
+          ToastAndroid.show('Press back again to exit', ToastAndroid.SHORT);
+        }
+        return true;
+      });
+      return () => sub.remove();
+    }, [selectedIds.size]),
+  );
 
   const exitSelection = useCallback(() => setSelectedIds(new Set()), []);
   // Selection keys carry the kind ("t:" torrent, "d:" link download) so the two id spaces never collide.

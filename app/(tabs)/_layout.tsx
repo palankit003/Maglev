@@ -176,6 +176,7 @@ export default function TabLayout() {
   // If the tab being shown is turned off, go to Transfers. Only a change of the bar triggers this,
   // so a hidden tab opened on purpose (Search from the + menu) is left alone.
   const current = useRef<{ name: string; go: (name: string) => void } | null>(null);
+  const history = useRef<string[]>(['index']);
   const was = useRef<TabId[]>(shown);
   useEffect(() => {
     const open = current.current;
@@ -194,11 +195,21 @@ export default function TabLayout() {
       const sub = BackHandler.addEventListener('hardwareBackPress', () => {
         const open = current.current;
         if (!open || open.name === 'index') return false;
-        open.go('index');
+        const h = history.current;
+        while (h.length > 0 && h[h.length - 1] === open.name) {
+          h.pop();
+        }
+        const prev = h.pop();
+        const target = prev && shown.includes(prev as TabId) ? prev : 'index';
+        if (target === 'index') {
+          open.go('index');
+          return true;
+        }
+        open.go(target);
         return true;
       });
       return () => sub.remove();
-    }, []),
+    }, [shown]),
   );
 
   return (
@@ -207,6 +218,10 @@ export default function TabLayout() {
         tabPress: () => haptic('select'),
         focus: () => {
           current.current = { name: route.name, go: (name) => navigation.navigate(name as never) };
+          const h = history.current;
+          if (h[h.length - 1] !== route.name) {
+            h.push(route.name);
+          }
         },
       })}
       screenOptions={{

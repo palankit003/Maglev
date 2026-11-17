@@ -19,5 +19,7 @@ check('Transfers falls through to its own handler and Android', /return false/.t
 check('no exitApp and no initialRouteName prop on Tabs', !/exitApp/.test(layout) && !/initialRouteName=/.test(layout));
 const transfers = fs.readFileSync(path.join(root, 'app/(tabs)/index.tsx'), 'utf8');
 check('Transfers still clears selection on Back first', /hardwareBackPress[\s\S]{0,80}setSelectedIds\(new Set\(\)\)/.test(transfers));
+check('tab layout maintains a history stack for back navigation', /history\s*=\s*useRef/.test(layout) && /h\.push\(route\.name\)/.test(layout));
+check('Transfers requires double-tap back to exit', /ToastAndroid\.show\(['"]Press back again to exit['"]/.test(transfers) && /now\s*-\s*lastBackTime\.current\s*<\s*2000/.test(transfers));
 console.log(failed ? `\n${failed} failed` : '\nall passed');
 process.exit(failed ? 1 : 0);
