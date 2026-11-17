@@ -7,8 +7,11 @@ name: browser-blocking
 - runFlow: subflows/onboard-if-needed.yaml
 - openLink: "maglev://browser?url=https%3A%2F%2Ftest-videos.co.uk%2Fbigbuckbunny%2Fmp4-h264"
 - extendedWaitUntil:
-    visible: "Address" # app/browser.tsx:268
+    visible: "Address" # app/browser.tsx:672 TextInput accessibilityLabel="Address"
     timeout: 30000
+# maglev://browser?url= only fills the address bar and never loads (app/+native-intent.tsx:26, NATIVE_CONTRACT 24.7), so submit it.
+- tapOn: "Address"
+- pressKey: Enter
 # "More" opens the "This page" sheet (app/browser.tsx:283, :368). The per-site row needs a loaded page host (:383).
 - extendedWaitUntil:
     visible: "test-videos.co.uk" # app/browser.tsx:203 idle address text is the host

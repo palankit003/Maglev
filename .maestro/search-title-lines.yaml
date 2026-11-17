@@ -16,10 +16,10 @@ name: search-title-lines
 # NEW: depends on result-name-lines change. Start from the default (2 lines) so the first screenshot is the default.
 - tapOn: "Settings"                                 # from app/(tabs)/_layout.tsx:171 (tab title "Settings")
 - scrollUntilVisible:
-    element: "Search providers"                     # from app/(tabs)/settings.tsx:162 (row title)
+    element: "Search sources"                     # from app/(tabs)/settings.tsx:183 (row title "Search sources")
     direction: DOWN
     timeout: 20000
-- tapOn: "Search providers"                          # from app/(tabs)/settings.tsx:162
+- tapOn: "Search sources"                          # from app/(tabs)/settings.tsx:183
 - extendedWaitUntil:
     visible: "Search sources"                       # from app/settings/search-providers.tsx:183 (page title)
     timeout: 10000
@@ -38,7 +38,11 @@ name: search-title-lines
 - takeScreenshot: search-title-lines-default         # default (2 lines)
 # Change to 1 line.
 - tapOn: "Settings"                                 # from app/(tabs)/_layout.tsx:171
-- tapOn: "Search providers"                         # from app/(tabs)/settings.tsx:162
+- scrollUntilVisible:
+    element: "Search sources"
+    direction: DOWN
+    timeout: 20000
+- tapOn: "Search sources"                         # from app/(tabs)/settings.tsx:183
 - scrollUntilVisible:
     element: "Result name lines"                    # NEW: depends on result-name-lines change (search-providers.tsx:245)
     direction: DOWN
@@ -54,7 +58,11 @@ name: search-title-lines
 - takeScreenshot: search-title-lines-1-line
 # Change to Full name.
 - tapOn: "Settings"                                 # from app/(tabs)/_layout.tsx:171
-- tapOn: "Search providers"                         # from app/(tabs)/settings.tsx:162
+- scrollUntilVisible:
+    element: "Search sources"
+    direction: DOWN
+    timeout: 20000
+- tapOn: "Search sources"                         # from app/(tabs)/settings.tsx:183
 - scrollUntilVisible:
     element: "Result name lines"                    # NEW: depends on result-name-lines change (search-providers.tsx:245)
     direction: DOWN
@@ -70,7 +78,11 @@ name: search-title-lines
 - takeScreenshot: search-title-lines-full-name
 # Restore the default (2 lines).
 - tapOn: "Settings"                                 # from app/(tabs)/_layout.tsx:171
-- tapOn: "Search providers"                         # from app/(tabs)/settings.tsx:162
+- scrollUntilVisible:
+    element: "Search sources"
+    direction: DOWN
+    timeout: 20000
+- tapOn: "Search sources"                         # from app/(tabs)/settings.tsx:183
 - scrollUntilVisible:
     element: "Result name lines"                    # NEW: depends on result-name-lines change (search-providers.tsx:245)
     direction: DOWN

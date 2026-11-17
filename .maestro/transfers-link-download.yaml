@@ -18,7 +18,12 @@ name: transfers-link-download
 # from app/add-torrent.tsx:604
 - inputText: "https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4"
 - tapOn: "Get info"
-# from app/add-torrent.tsx:618
+# from app/add-torrent.tsx:618. A web link is handed on to Add a link (add-torrent.tsx:168), which only fills
+# the field (add-download.tsx useEffect on params.url) and needs its own "Get info" tap.
+- extendedWaitUntil:
+    visible: "Link to a file"
+    timeout: 10000
+- tapOn: "Get info"
 - extendedWaitUntil:
     visible: "Start"
     timeout: 60000

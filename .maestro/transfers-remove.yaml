@@ -5,6 +5,7 @@ name: transfers-remove
 ---
 - runFlow: subflows/onboard-if-needed.yaml
 - openLink: "magnet:?xt=urn:btih:08ada5a7a6183aae1e09d831df6748d566095a10&dn=Sintel&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337%2Fannounce&tr=udp%3A%2F%2Fopen.tracker.cl%3A1337%2Fannounce&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A6969%2Fannounce&tr=udp%3A%2F%2Fexplodie.org%3A6969%2Fannounce"
+- runFlow: subflows/open-in-maglev.yaml   # the quick share card comes first (see that file)
 - extendedWaitUntil:
     visible: "Start download.*"
     timeout: 120000
@@ -29,6 +30,7 @@ name: transfers-remove
 # empty.transfers.none.title (constants/copy.ts), TeachingEmptyState.tsx:49
 - openLink: "magnet:?xt=urn:btih:08ada5a7a6183aae1e09d831df6748d566095a10&dn=Sintel&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337%2Fannounce&tr=udp%3A%2F%2Fopen.tracker.cl%3A1337%2Fannounce&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A6969%2Fannounce&tr=udp%3A%2F%2Fexplodie.org%3A6969%2Fannounce"
 # Re-adding after keep-files: the engine may still hold the item during the 5 s Undo window, so the wait below covers it.
+- runFlow: subflows/open-in-maglev.yaml   # the quick share card comes first (see that file)
 - extendedWaitUntil:
     visible: "Start download.*"
     timeout: 120000

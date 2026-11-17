@@ -8,8 +8,11 @@ name: browser-detect
 # maglev://browser?url= loads the page (utils/browserUrl.ts browserIntentRoute; NATIVE_CONTRACT 24.7).
 - openLink: "maglev://browser?url=https%3A%2F%2Ftest-videos.co.uk%2Fbigbuckbunny%2Fmp4-h264"
 - extendedWaitUntil:
-    visible: "Address" # app/browser.tsx:268 TextInput accessibilityLabel="Address"
+    visible: "Address" # app/browser.tsx:672 TextInput accessibilityLabel="Address"
     timeout: 30000
+# maglev://browser?url= only fills the address bar and never loads (app/+native-intent.tsx:26, NATIVE_CONTRACT 24.7), so submit it.
+- tapOn: "Address"
+- pressKey: Enter
 # Found-files indicator: "Files · N" (app/browser.tsx:344), accessibilityLabel "Files, N found" (:347).
 - extendedWaitUntil:
     visible: "Files . [1-9][0-9]*" # app/browser.tsx:344

@@ -30,10 +30,8 @@ name: search-watch
 - extendedWaitUntil:
     visible: "Delete this watch\\?"                 # from constants/copy.ts:510 (watchCopy.deleteTitle)
     timeout: 10000
-# The Alert's Delete is the second "Delete" on screen (the card's button is behind it). UNVERIFIED on device.
-- tapOn:
-    text: "Delete"                                  # from constants/copy.ts:509 (watchCopy.delete) in the Alert, app/settings/watch.tsx:39
-    index: 1
+# The Alert is a native dialog window: only its "DELETE" button is in the hierarchy (search-watch debug screenshot), so no index.
+- tapOn: "Delete"                                  # from constants/copy.ts:509 (watchCopy.delete) in the Alert, app/settings/watch.tsx:39
 - extendedWaitUntil:
     notVisible: "Sintel"                            # from app/settings/watch.tsx:52: row gone after delete
     timeout: 10000

@@ -18,8 +18,11 @@ name: settings-roundtrip
     text: "Retro\\..*"
     checked: true
 - back
-# Android back returns to Settings
-# 2. Connection > Network > Wi-Fi only: a Toggle labelled "Wi-Fi only" (app/settings/network.tsx:48).
+# Android back returns to Settings. If the app closes here instead (seen on the v0.26 CI run, the activity finished right after the live font change), this wait fails with a clear message.
+- extendedWaitUntil:
+    visible: "Search settings"
+    timeout: 10000
+# 2. Network and power > Network > Wi-Fi only: a Toggle labelled "Wi-Fi only" (app/settings/network.tsx:48).
 #    The row title is also "Wi-Fi only", so index 1 is the switch.
 - scrollUntilVisible:
     element: "Network"

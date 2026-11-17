@@ -31,6 +31,7 @@ name: search-filters
     visible: "Sort and filter"                      # from app/(tabs)/search.tsx:815 (Sheet title)
     timeout: 10000
 - tapOn: "Newest"                                   # from app/(tabs)/search.tsx:821 + copy label constants in search.tsx:66 (SORT_LABEL.newest)
+- tapOn: "Done"                                    # the sheet stays open after a pick (components/search/SortFilterSheet.tsx); the "Sort: ..." button is behind it
 - extendedWaitUntil:
     visible: "Sort: Newest"                         # from app/(tabs)/search.tsx:689 (label reflects the choice)
     timeout: 10000
@@ -41,6 +42,7 @@ name: search-filters
     visible: "Sort and filter"                      # from app/(tabs)/search.tsx:815
     timeout: 10000
 - tapOn: "Largest"                                  # from app/(tabs)/search.tsx:821 (SORT_LABEL.size = "Largest", search.tsx:66)
+- tapOn: "Done"                                    # the sheet stays open after a pick (components/search/SortFilterSheet.tsx); the "Sort: ..." button is behind it
 - extendedWaitUntil:
     visible: "Sort: Largest"                        # from app/(tabs)/search.tsx:689
     timeout: 10000
@@ -49,6 +51,7 @@ name: search-filters
 # Restore the default sort ("Most shared", search.tsx:66) so the next run starts clean.
 - tapOn: "Sort: .*"                                 # from app/(tabs)/search.tsx:689
 - tapOn: "Most shared"                              # from app/(tabs)/search.tsx:66 (SORT_LABEL.seeders); chip at search.tsx:821
+- tapOn: "Done"
 - extendedWaitUntil:
     visible: "Sort: Most shared"                    # from app/(tabs)/search.tsx:689
     timeout: 10000

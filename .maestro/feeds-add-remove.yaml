@@ -9,7 +9,7 @@ name: feeds-add-remove
     visible: "Paste the address of an RSS or Atom feed."   # from components/feeds/NewFeedSheet.tsx:39 (subtitle)
     timeout: 10000
 - inputText: "https://archive.org/services/collection-rss.php?collection=opensource_movies"
-- tapOn: "Add feed"                                 # from components/feeds/NewFeedSheet.tsx:65 (label "Add feed")
+- pressKey: Enter                                 # the keyboard covers the sheet's "Add feed" button; the field's go key submits (components/feeds/NewFeedSheet.tsx onSubmitEditing)
 - extendedWaitUntil:
     visible: "archive.org"                          # from app/(tabs)/feeds.tsx:358 (feedHost shows hostOf(url) when a feed is selected)
     timeout: 90000

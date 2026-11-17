@@ -38,3 +38,5 @@ Use an emulator, never a phone you care about: flows clear app data (`onboarding
 The transfers list must be empty before a run (flows tap the only card on screen). The search flow needs at least one source enabled and reachable.
 
 CI: `.github/workflows/e2e.yml` (manual or on `v*` tags, report-only).
+
+Opening a magnet, `.torrent` or file link with `openLink` shows Maglev's quick share card first (`subflows/open-in-maglev.yaml` taps "Open in Maglev"). `maglev://browser?url=` only fills the address bar, so browser flows tap Address and press Enter.

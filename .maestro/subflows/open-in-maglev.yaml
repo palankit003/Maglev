@@ -1,0 +1,9 @@
+# After openLink with a magnet, a .torrent or a file link: Android shows Maglev's quick share card
+# (modules/maglev-engine/android/.../share/QuickShareActivity.kt, copy: constants/copy.ts quickShareCopy).
+# "Open in Maglev" hands the link to the in-app Add torrent screen, where the flows carry on.
+appId: com.maglev
+---
+- extendedWaitUntil:
+    visible: "Open in Maglev"
+    timeout: 60000
+- tapOn: "Open in Maglev"
